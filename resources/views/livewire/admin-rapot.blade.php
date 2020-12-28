@@ -4,7 +4,7 @@
       <div class="col-2">
         <a href="{{ route('admin.rapot.index') }}" class="btn btn-default btn-block"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a>
       </div>
-      <div class="col-10">
+      <div class="col-8">
         <select wire:model="select" class="custom-select form-control" style="width: 100%;">
           <option value="" disabled>-- Pilih Tahun Pelajaran --</option>
           @foreach ($listTahun as $key => $data)
@@ -18,6 +18,13 @@
             </option>
           @endforeach
         </select>
+      </div>
+      <div class="col-2">
+        @if ($select)
+          <a href="{{ route('admin.cetak.rapot', ['siswa_id' => $siswa->id, 'tahun_id' => $tahun->id]) }}" target="_blank" class="btn btn-primary btn-block" style="height: calc(2.25rem + 2px);"><i class='nav-icon fas fa-print'></i> &nbsp; Cetak</a>
+        @else
+          <a href="#" class="btn btn-primary btn-block disabled" style="height: calc(2.25rem + 2px);"><i class='nav-icon fas fa-print'></i> &nbsp; Cetak</a>
+        @endif
       </div>
     </div>
   </div>

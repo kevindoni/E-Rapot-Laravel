@@ -60,6 +60,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('user', App\Http\Controllers\UserController::class);
         Route::get('/admin/rapot', [App\Http\Controllers\HomeController::class, 'adminIndex'])->name('admin.rapot.index');
         Route::get('/admin/rapot/{id}', [App\Http\Controllers\HomeController::class, 'adminShow'])->name('admin.rapot.show');
+        Route::get('/cetak/rapot/{siswa_id}/{tahun_id}', [App\Http\Controllers\CetakController::class, 'adminRapot'])->name('admin.cetak.rapot');
         Route::get('/setting', [App\Http\Controllers\HomeController::class, 'setting'])->name('setting');
         Route::post('/setting', [App\Http\Controllers\HomeController::class, 'simpan'])->name('simpan');
     });

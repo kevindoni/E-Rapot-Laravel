@@ -16,7 +16,8 @@ class NilaiMapel extends Model
         'mapel_id',
         'nilai_p',
         'nilai_k',
-        'tahun_id'
+        'tahun_id',
+        'kelompok'
     ];
 
     public function kelas()
