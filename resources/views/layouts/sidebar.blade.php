@@ -64,6 +64,12 @@
                   <p>Siswa</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ route('user.index') }}" class="nav-link" id="DataUser">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>User</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item has-treeview" id="liSetData">

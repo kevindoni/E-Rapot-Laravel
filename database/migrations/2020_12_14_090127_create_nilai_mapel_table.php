@@ -22,6 +22,7 @@ class CreateNilaiMapelTable extends Migration
             $table->integer('nilai_p');
             $table->integer('nilai_k');
             $table->unsignedBigInteger('tahun_id');
+            $table->enum('kelompok', ['Muatan Nasional', 'Muatan Kewilayahan', 'Dasar Bidang Keahlian', 'Dasar Program Keahlian', 'Kompetensi Keahlian']);
             $table->timestamps();
 
             $table->foreign('siswa_id')->references('id')->on('siswa');

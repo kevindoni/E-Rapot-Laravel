@@ -43,6 +43,26 @@ class HomeController extends Controller
         }
     }
 
+    public function wali()
+    {
+        return view('wali.rapot');
+    }
+
+    public function rapot()
+    {
+        return view('siswa.index');
+    }
+
+    public function adminIndex()
+    {
+        return view('admin.rapot.index');
+    }
+
+    public function adminShow($id)
+    {
+        return view('admin.rapot.show', compact('id'));
+    }
+
     public function setting()
     {
         $profile = Profile::find(1);

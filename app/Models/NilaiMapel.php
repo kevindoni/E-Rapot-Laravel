@@ -42,16 +42,16 @@ class NilaiMapel extends Model
     public function cekNilaiMapel($id)
     {
         $data = json_decode($id, true);
-        return NilaiMapel::where('siswa_id', $data['siswa'])->where('mapel_id', $data['mapel'])->where('tahun_id', $data['tahun'])->first();
+        return NilaiMapel::where('siswa_id', $data['siswa'])->where('mapel_id', $data['mapel'])->where('tahun_id', $data['tahun'])->orderBy('id', 'desc')->first();
     }
 
     public function cekPredikat($id)
     {
         $data = json_decode($id, true);
         if ($data['kelompok'] == 'Kompetensi Keahlian' || $data['kelompok'] == 'Dasar Program Keahlian') {
-            return Predikat::orderBy('produktif')->where('produktif', '>=', $data['nilai'])->first();
+            return Predikat::orderBy('produktif', 'desc')->where('produktif', '<=', $data['nilai'])->first();
         } elseif ($data['kelompok'] == 'Muatan Nasional' || $data['kelompok'] == 'Muatan Kewilayahan' || $data['kelompok'] == 'Dasar Bidang Keahlian') {
-            return Predikat::orderBy('normatif')->where('normatif', '>=', $data['nilai'])->first();
+            return Predikat::orderBy('normatif', 'desc')->where('normatif', '<=', $data['nilai'])->first();
         } else {
             return " - ";
         }

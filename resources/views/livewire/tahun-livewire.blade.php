@@ -61,7 +61,7 @@
             @endforeach
           @else
             <tr>
-              <td colspan="5" class="text-center">Data Mapel Tidak Ada!</td>
+              <td colspan="6" class="text-center">Data Mapel Tidak Ada!</td>
             </tr>
           @endif
         </tbody>

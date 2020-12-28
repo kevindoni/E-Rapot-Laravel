@@ -8,7 +8,10 @@
     <div class="card">
       <div class="card-header">
         <h3 class="card-title">
-          <a href="{{ route('nilai-ekstra.index') }}" class="btn btn-default btn-sm"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a>
+          <a href="{{ route('nilai-ekstra.index') }}" class="btn btn-default btn-sm mr-1"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a>
+          <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#importNilai">
+            <i class="nav-icon fas fa-file-import"></i> &nbsp; Import Nilai
+          </button>
         </h3>
       </div>
       <!-- /.card-header -->
@@ -110,8 +113,40 @@
     <!-- /.card -->
   </div>
   <!-- /.col -->
+
+  <div class="modal fade bd-example-modal-md" id="importNilai" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+      <form method="post" action="{{ route('import.ekstra') }}" enctype="multipart/form-data">
+        @csrf
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Import Nilai Ekstra</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" name="ekstra_id" value="{{ $ekstra->id }}">
+            <a href="{{ route('export.ekstra', $ekstra->id) }}" class="btn btn-info btn-block mb-3"><i class="nav-icon fas fa-download"></i> &nbsp; Download Template</a>
+            <div class="form-group" style="margin-bottom: 0;">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" name="file" id="file">
+                <label class="custom-file-label" for="file">Choose file</label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Import</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 @endsection
 @push('script')
+  <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+
   <script>
     $("#NilaiEkstra").addClass("active");
 
@@ -155,6 +190,10 @@
           }
         });
       }
+    });
+
+    $(document).ready(function () {
+      bsCustomFileInput.init();
     });
   </script>
 @endpush

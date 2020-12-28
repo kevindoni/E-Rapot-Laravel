@@ -130,11 +130,11 @@ class JadwalController extends Controller
 
     public function jadwal(Request $request)
     {
-        $cekJadwal = Jadwal::with('mapel')->where('kelas_id', $request->kelas)->where('guru_id', Auth::user()->data_id)->get();
+        $cekJadwal = Jadwal::with('mapel')->where('kelas_id', $request->kelas)->where('guru_id', Auth::user()->data_id)->get()->groupBy('mapel_id');
         foreach ($cekJadwal as $data) {
             $newForm[] = array(
-                'nama_mapel' => $data->mapel->nama_mapel,
-                'id' => $data->mapel->id
+                'nama_mapel' => $data[0]->mapel->nama_mapel,
+                'id' => $data[0]->mapel->id
             );
         }
         sort($newForm);

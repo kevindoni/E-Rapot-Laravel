@@ -310,7 +310,10 @@
                     </td>
                     <td class="text-center">
                       @if ($data->cekNilaiMapel($jsonData))
-                        {{ round(($data->cekNilaiMapel($jsonData)['nilai_p'] * $data->mapel->bobot_p + $data->cekNilaiMapel($jsonData)['nilai_k'] * $data->mapel->bobot_k) / 100) }}
+                        @php
+                          $nilai = round(($data->cekNilaiMapel($jsonData)['nilai_p'] * $data->mapel->bobot_p + $data->cekNilaiMapel($jsonData)['nilai_k'] * $data->mapel->bobot_k) / 100);
+                        @endphp
+                        {{ $nilai }}
                       @else
                         {{ " - " }}
                       @endif
@@ -318,7 +321,6 @@
                     <td class="text-center">
                       @if ($data->cekNilaiMapel($jsonData))
                         @php
-                          $nilai = round(($data->cekNilaiMapel($jsonData)['nilai_p'] * $data->mapel->bobot_p + $data->cekNilaiMapel($jsonData)['nilai_k'] * $data->mapel->bobot_k) / 100);
                           $arrayPredikat = array('nilai' => $nilai, 'kelompok' => $data->kelompok);
                           $jsonPredikat = json_encode($arrayPredikat);
                         @endphp

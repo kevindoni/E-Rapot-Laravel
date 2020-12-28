@@ -120,7 +120,7 @@
           <div class="icon">
             <i class="fas fa-user nav-icon"></i>
           </div>
-          <a href="#" class="small-box-footer">Info lebih lanjut <i class="fas fa-arrow-circle-right"></i></a>
+          <a href="{{ route('user.index') }}" class="small-box-footer">Info lebih lanjut <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
     @elseif (Auth::user()->level == "Wali Kelas")

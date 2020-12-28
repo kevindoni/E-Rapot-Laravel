@@ -7,7 +7,10 @@
       <div class="card shadow">
         <div class="card-header">
           <h3 class="card-title">
-            <a href="{{ route('nilai-mapel.index') }}" class="btn btn-default btn-sm"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a>
+            <a href="{{ route('nilai-mapel.index') }}" class="btn btn-default btn-sm mr-1"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a>
+            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#importNilai">
+              <i class="nav-icon fas fa-file-import"></i> &nbsp; Import Nilai
+            </button>
           </h3>
         </div>
         <!-- /.card-header -->
@@ -18,14 +21,20 @@
                 <tr>
                   <td>Nama Kelas</td>
                   <td>:</td>
-                  <td>{{ $kelas->nama_kelas }}</td>
+                  <td>
+                    @if ($jadwal->kelas)
+                      {{ $jadwal->kelas->nama_kelas }}
+                    @else
+                      {{ " - " }}
+                    @endif
+                  </td>
                 </tr>
                 <tr>
                   <td>Wali Kelas</td>
                   <td>:</td>
                   <td>
-                    @if ($kelas->wali)
-                      {{ $kelas->wali->nama_guru }}
+                    @if ($jadwal->kelas && $jadwal->kelas->wali)
+                      {{ $jadwal->kelas->wali->nama_guru }}
                     @else
                       {{ " - " }}
                     @endif
@@ -62,59 +71,61 @@
               <hr>
             </div>
             <div class="col-md-12">
-              <table class="table table-bordered table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th class="text-center" style="width: 50px;">No.</th>
-                    <th>Nama Siswa</th>
-                    <th class="text-center" style="width: 200px;">Pengetahuan</th>
-                    <th class="text-center" style="width: 200px;">Keterampilan</th>
-                    <th class="text-center" style="width: 50px;">Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
-                  <input type="hidden" name="mapel_id" value="{{ $jadwal->mapel_id }}">
-                  <input type="hidden" name="tahun_id" value="{{ $tahun->id }}">
-                  @foreach ($siswa as $data)
-                    @php
-                      $array = array('siswa' => $data->siswa->id, 'mapel' => $jadwal->mapel_id, 'tahun' => $tahun->id);
-                      $jsonData = json_encode($array);
-                    @endphp
-                    @if ($data->cekNilaiMapel($jsonData))
-                      <input type="hidden" name="nilai_mapel_id" class="nilai_mapel_{{ $data->siswa->id }}" value="{{ $data->cekNilaiMapel($jsonData)['id'] }}">
-                      <tr>
-                        <td class="text-center">{{ $loop->iteration }}</td>
-                        <td>{{ $data->siswa->nama_siswa }}</td>
-                        <td class="text-center">
-                          <input type="text" name="nilai_p" maxlength="2" onkeypress="return inputAngka(event)" value="{{ $data->cekNilaiMapel($jsonData)['nilai_p'] }}" class="form-control text-center nilai_p_{{ $data->siswa->id }}" autocomplete="off">
-                        </td>
-                        <td class="text-center">
-                          <input type="text" name="nilai_k" maxlength="2" onkeypress="return inputAngka(event)" value="{{ $data->cekNilaiMapel($jsonData)['nilai_k'] }}" class="form-control text-center nilai_k_{{ $data->siswa->id }}" autocomplete="off">
-                        </td>
-                        <td class="ctr text-center">
-                          <button type="button" class="btn btn-default btn_click load_{{ $data->siswa->id }}" data-id="{{ $data->siswa->id }}"><i class="nav-icon fas fa-save"></i></button>
-                        </td>
-                      </tr>
-                    @else
-                      <input type="hidden" name="nilai_mapel_id" class="nilai_mapel_{{ $data->siswa->id }}">
-                      <tr>
-                        <td class="text-center">{{ $loop->iteration }}</td>
-                        <td>{{ $data->siswa->nama_siswa }}</td>
-                        <td class="text-center">
-                          <input type="text" name="nilai_p" maxlength="2" onkeypress="return inputAngka(event)" class="form-control text-center nilai_p_{{ $data->siswa->id }}" autofocus autocomplete="off">
-                        </td>
-                        <td class="text-center">
-                          <input type="text" name="nilai_k" maxlength="2" onkeypress="return inputAngka(event)" class="form-control text-center nilai_k_{{ $data->siswa->id }}" autocomplete="off">
-                        </td>
-                        <td class="ctr text-center">
-                          <button type="button" class="btn btn-default btn_click load_{{ $data->siswa->id }}" data-id="{{ $data->siswa->id }}"><i class="nav-icon fas fa-save"></i></button>
-                        </td>
-                      </tr>
-                    @endif
-                  @endforeach
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th class="text-center" style="width: 50px;">No.</th>
+                      <th>Nama Siswa</th>
+                      <th class="text-center" style="width: 200px;">Pengetahuan</th>
+                      <th class="text-center" style="width: 200px;">Keterampilan</th>
+                      <th class="text-center" style="width: 50px;">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <input type="hidden" name="kelas_id" value="{{ $jadwal->kelas_id }}">
+                    <input type="hidden" name="mapel_id" value="{{ $jadwal->mapel_id }}">
+                    <input type="hidden" name="tahun_id" value="{{ $tahun->id }}">
+                    @foreach ($siswa as $data)
+                      @php
+                        $array = array('siswa' => $data->siswa->id, 'mapel' => $jadwal->mapel_id, 'tahun' => $tahun->id);
+                        $jsonData = json_encode($array);
+                      @endphp
+                      @if ($data->cekNilaiMapel($jsonData))
+                        <input type="hidden" name="nilai_mapel_id" class="nilai_mapel_{{ $data->siswa->id }}" value="{{ $data->cekNilaiMapel($jsonData)['id'] }}">
+                        <tr>
+                          <td class="text-center">{{ $loop->iteration }}</td>
+                          <td>{{ $data->siswa->nama_siswa }}</td>
+                          <td class="text-center">
+                            <input type="text" name="nilai_p" maxlength="2" onkeypress="return inputAngka(event)" value="{{ $data->cekNilaiMapel($jsonData)['nilai_p'] }}" class="form-control text-center nilai_p_{{ $data->siswa->id }}" autocomplete="off">
+                          </td>
+                          <td class="text-center">
+                            <input type="text" name="nilai_k" maxlength="2" onkeypress="return inputAngka(event)" value="{{ $data->cekNilaiMapel($jsonData)['nilai_k'] }}" class="form-control text-center nilai_k_{{ $data->siswa->id }}" autocomplete="off">
+                          </td>
+                          <td class="ctr text-center">
+                            <button type="button" class="btn btn-default btn_click load_{{ $data->siswa->id }}" data-id="{{ $data->siswa->id }}"><i class="nav-icon fas fa-save"></i></button>
+                          </td>
+                        </tr>
+                      @else
+                        <input type="hidden" name="nilai_mapel_id" class="nilai_mapel_{{ $data->siswa->id }}">
+                        <tr>
+                          <td class="text-center">{{ $loop->iteration }}</td>
+                          <td>{{ $data->siswa->nama_siswa }}</td>
+                          <td class="text-center">
+                            <input type="text" name="nilai_p" maxlength="2" onkeypress="return inputAngka(event)" class="form-control text-center nilai_p_{{ $data->siswa->id }}" autofocus autocomplete="off">
+                          </td>
+                          <td class="text-center">
+                            <input type="text" name="nilai_k" maxlength="2" onkeypress="return inputAngka(event)" class="form-control text-center nilai_k_{{ $data->siswa->id }}" autocomplete="off">
+                          </td>
+                          <td class="ctr text-center">
+                            <button type="button" class="btn btn-default btn_click load_{{ $data->siswa->id }}" data-id="{{ $data->siswa->id }}"><i class="nav-icon fas fa-save"></i></button>
+                          </td>
+                        </tr>
+                      @endif
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -123,8 +134,40 @@
       <!-- /.card -->
     </div>
   </div>
+
+  <div class="modal fade bd-example-modal-md" id="importNilai" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+      <form method="post" action="{{ route('import.nilai') }}" enctype="multipart/form-data">
+        @csrf
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Import Nilai</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" name="jadwal_id" value="{{ $jadwal->id }}">
+            <a href="{{ route('export.nilai', $jadwal->id) }}" class="btn btn-info btn-block mb-3"><i class="nav-icon fas fa-download"></i> &nbsp; Download Template</a>
+            <div class="form-group" style="margin-bottom: 0;">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" name="file" id="file">
+                <label class="custom-file-label" for="file">Choose file</label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Import</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 @endsection
 @push('script')
+  <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+
   <script>
     function inputAngka(event) {
       var charCode = (event.which) ? event.which : event.keyCode
@@ -178,6 +221,10 @@
           }
         });
       }
+    });
+
+    $(document).ready(function () {
+      bsCustomFileInput.init();
     });
   </script>
 @endpush

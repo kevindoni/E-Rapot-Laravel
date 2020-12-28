@@ -6,11 +6,18 @@
 @section('content')
   <div class="col-md-12">
     <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#importCatatan">
+            <i class="nav-icon fas fa-file-import"></i> &nbsp; Import Catatan
+          </button>
+        </h3>
+      </div>
       <!-- /.card-header -->
       <div class="card-body">
         <div class="row">
           <div class="col-md-12">
-            <table class="table">
+            <table class="table" style="margin-top: -10px;">
               <tr>
                 <td>Nama Kelas</td>
                 <td>:</td>
@@ -99,8 +106,39 @@
     <!-- /.card -->
   </div>
   <!-- /.col -->
+
+  <div class="modal fade bd-example-modal-md" id="importCatatan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+      <form method="post" action="{{ route('import.catatan') }}" enctype="multipart/form-data">
+        @csrf
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Import Catatan Akademik</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <a href="{{ route('export.catatan',) }}" class="btn btn-info btn-block mb-3"><i class="nav-icon fas fa-download"></i> &nbsp; Download Template</a>
+            <div class="form-group" style="margin-bottom: 0;">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" name="file" id="file">
+                <label class="custom-file-label" for="file">Choose file</label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Import</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 @endsection
 @push('script')
+  <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+
   <script>
     $("#Catatan").addClass("active");
 
@@ -142,6 +180,10 @@
           }
         });
       }
+    });
+
+    $(document).ready(function () {
+      bsCustomFileInput.init();
     });
   </script>
 @endpush

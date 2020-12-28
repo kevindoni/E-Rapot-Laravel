@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Guru;
 use App\Models\Kelas;
 use App\Models\Mapel;
 use App\Models\Tahun;
@@ -96,11 +95,10 @@ class NilaiMapelController extends Controller
     public function show($id)
     {
         $id = Crypt::decrypt($id);
-        $jadwal = Jadwal::with('mapel')->find($id);
+        $jadwal = Jadwal::with('mapel', 'kelas.wali')->find($id);
         $siswa = KelasSiswa::with('siswa')->where('kelas_id', $jadwal->kelas_id)->get();
         $tahun = Tahun::where('status', 'Aktif')->first();
-        $kelas = Kelas::with('wali')->find($jadwal->kelas_id);
-        return view('guru.show', compact('jadwal', 'siswa', 'tahun', 'kelas'));
+        return view('guru.show', compact('jadwal', 'siswa', 'tahun'));
     }
 
     /**

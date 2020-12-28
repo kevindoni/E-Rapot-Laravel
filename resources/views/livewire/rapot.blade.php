@@ -1,24 +1,35 @@
 <div>
   <div class="card-header">
-    <select wire:model="select" class="custom-select form-control" style="width: 100%;">
-      <option value="" disabled>-- Pilih Tahun Pelajaran --</option>
-      @foreach ($listTahun as $key => $data)
-        <option value="{{ $key }}">
-          {{ $data[0]->tahun->semester }}
-          @if ($data[0]->tahun->semester == "Ganjil")
-            {{ $data[0]->tahun->tahun . "/" . ($data[0]->tahun->tahun + 1) }}
-          @else
-            {{ ($data[0]->tahun->tahun - 1) . "/" . $data[0]->tahun->tahun }}
-          @endif
-        </option>
-      @endforeach
-    </select>
+    <div class="row">
+      <div class="col-10">
+        <select wire:model="select" class="custom-select form-control" style="width: 100%;">
+          <option value="" disabled>-- Pilih Tahun Pelajaran --</option>
+          @foreach ($listTahun as $key => $data)
+            <option value="{{ $key }}">
+              {{ $data[0]->tahun->semester }}
+              @if ($data[0]->tahun->semester == "Ganjil")
+                {{ $data[0]->tahun->tahun . "/" . ($data[0]->tahun->tahun + 1) }}
+              @else
+                {{ ($data[0]->tahun->tahun - 1) . "/" . $data[0]->tahun->tahun }}
+              @endif
+            </option>
+          @endforeach
+        </select>
+      </div>
+      <div class="col-2">
+        @if ($select)
+          <a href="{{ route('cetak.rapot', $tahun->id) }}" target="_blank" class="btn btn-primary btn-block" style="height: calc(2.25rem + 2px);"><i class='nav-icon fas fa-print'></i> &nbsp; Cetak</a>
+        @else
+          <a href="#" target="_blank" class="btn btn-primary btn-block disabled" style="height: calc(2.25rem + 2px);"><i class='nav-icon fas fa-print'></i> &nbsp; Cetak</a>
+        @endif
+      </div>
+    </div>
   </div>
   <!-- /.card-header -->
   <div class="card-body">
-    <div class="row">
-      @if ($select != "")
-        <div class="col-md-12">
+    @if ($select != "")
+      <div class="row">
+        <div class="col-12">
           <table class="table" style="margin-top: -10px;">
             <tr>
               <td>Nama Siswa</td>
@@ -70,8 +81,6 @@
             </tr>
           </table>
           <hr>
-        </div>
-        <div class="col-md-12">
           <h4 class="mb-3">A. Nilai Akademik</h4>
           <table class="table table-bordered table-striped table-hover">
             <thead>
@@ -485,11 +494,10 @@
             </tr>
           </table>
         </div>
-      @else
-        <div class="col-12">
-          <h3 class="title text-center"><b>Pilih tahun pelajaran terlebih dahulu</b></h3>
-        </div>
-      @endif
+      </div>
+    @else
+      <h3 class="title text-center"><b>Pilih tahun pelajaran terlebih dahulu</b></h3>
+    @endif
     </div>
   </div>
 </div>
