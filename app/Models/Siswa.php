@@ -30,6 +30,8 @@ class Siswa extends Model
         'alamat_wali',
         'telp_wali',
         'pekerjaan_wali',
+        'tgl_masuk',
+        'tgl_lulus',
         'status',
         'lulus'
     ];

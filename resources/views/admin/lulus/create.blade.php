@@ -23,6 +23,10 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
+                  <label for="tgl_lulus">Tanggal Lulus</label>
+                  <input type="date" id="tgl_lulus" name="tgl_lulus" class="form-control  @error('tgl_lulus') is-invalid @enderror" required>
+                </div>
+                <div class="form-group">
                   <label for="siswa">Lulus</label>
                   <select class="duallistbox" name="siswa[]" id="siswa" multiple="multiple">
                     @foreach ($siswa as $data)

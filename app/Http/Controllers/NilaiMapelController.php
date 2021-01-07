@@ -80,7 +80,9 @@ class NilaiMapelController extends Controller
                 ]
             );
 
-            return response()->json(['success' => 'Nilai mapel ' . $siswa->nama_siswa . ' berhasil disimpan!', 'data' => $data]);
+            $nilai = round(($request->nilai_p * $mapel->bobot_p + $request->nilai_k * $mapel->bobot_k) / 100);
+
+            return response()->json(['success' => 'Nilai mapel ' . $siswa->nama_siswa . ' berhasil disimpan!', 'data' => $data, 'nilai_akhir' => $nilai]);
         } else {
             return response()->json(['error' => 'Wali kelas ini tidak ada!']);
         }

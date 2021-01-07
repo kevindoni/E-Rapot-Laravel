@@ -26,7 +26,7 @@
   <body>
     <div class="row" style="margin-top: -10px;">
       <div class="col-12">
-        <table class="table" style="margin-top: -10px;">
+        <table class="table table-sm" style="margin-top: -10px;">
           <tr>
             <td>Nama Siswa</td>
             <td>:</td>
@@ -77,8 +77,8 @@
           </tr>
         </table>
         <hr>
-        <h4 class="mb-3">A. Nilai Akademik</h4>
-        <table class="table table-bordered table-striped table-hover">
+        <h5 class="mb-2">A. Nilai Akademik</h5>
+        <table class="table table-bordered table-striped table-hover table-sm">
           <thead>
             <tr>
               <th class="text-center">No.</th>
@@ -404,7 +404,7 @@
             @endif
           </tbody>
         </table>
-        <h4 class="mb-3">B. Catatan Akademik</h4>
+        <h5 class="mb-2">B. Catatan Akademik</h5>
         <div class="callout">
           <p>
             @if ($catatan)
@@ -414,8 +414,8 @@
             @endif
           </p>
         </div>
-        <h4 class="mb-3">C. Praktik Kerja Lapangan</h4>
-        <table class="table table-bordered table-striped table-hover">
+        <h5 class="mb-2">C. Praktik Kerja Lapangan</h5>
+        <table class="table table-bordered table-striped table-hover table-sm">
           <thead>
             <tr>
               <th class="text-center">No.</th>
@@ -447,8 +447,8 @@
             @endif
           </tbody>
         </table>
-        <h4 class="mb-3">D. Ekstra Kurikuler</h4>
-        <table class="table table-bordered table-striped table-hover">
+        <h5 class="mb-2">D. Ekstra Kurikuler</h5>
+        <table class="table table-bordered table-striped table-hover table-sm">
           <thead>
             <tr>
               <th class="text-center">No.</th>
@@ -474,10 +474,10 @@
             @endif
           </tbody>
         </table>
-        <h4 class="mb-3">E. Ketidakhadiran</h4>
-        <table class="table table-bordered table-striped table-hover">
+        <h5 class="mb-2">E. Ketidakhadiran</h5>
+        <table class="table table-bordered table-striped table-hover table-sm">
           <tr>
-            <td>Sakir</td>
+            <td>Sakit</td>
             <td>- Hari</td>
           </tr>
           <tr>

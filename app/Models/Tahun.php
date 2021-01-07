@@ -14,6 +14,7 @@ class Tahun extends Model
         'tahun',
         'kpl_sklh',
         'nip_kespek',
+        'tgl_rapot',
         'status'
     ];
 

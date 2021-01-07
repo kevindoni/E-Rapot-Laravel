@@ -25,6 +25,7 @@
             <th>Semester</th>
             <th>Tahun</th>
             <th>Kepala Sekolah</th>
+            <th>Tanggal Terima Rapot</th>
             <th>Status</th>
             <th>Action</th>
           </tr>
@@ -46,11 +47,12 @@
                   <h5 class='card-title'>{{ $data->kpl_sklh }}</h5>
                   <p class='card-text'><small class='text-muted'>{{ $data->nip_kespek }}</small></p>
                 </td>
+                <td>{{ date('l, d F Y', strtotime($data->tgl_rapot)) }}</td>
                 <td class="text-center">
                   @if ($data->status == 'Tidak Aktif')
-                      <span class="badge badge-danger">{{ $data->status }}</span>
+                    <span class="badge badge-danger">{{ $data->status }}</span>
                   @else
-                      <span class="badge badge-success">{{ $data->status }}</span>
+                    <span class="badge badge-success">{{ $data->status }}</span>
                   @endif
                 </td>
                 <td>

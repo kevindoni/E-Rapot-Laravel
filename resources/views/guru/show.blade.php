@@ -57,6 +57,28 @@
                   </td>
                 </tr>
                 <tr>
+                  <td>Bobot Pengetahuan</td>
+                  <td>:</td>
+                  <td>
+                    @if ($jadwal->mapel)
+                      {{ $jadwal->mapel->bobot_p . "%" }}
+                    @else
+                      {{ " - " }}
+                    @endif
+                  </td>
+                </tr>
+                <tr>
+                  <td>Bobot Keterampilan</td>
+                  <td>:</td>
+                  <td>
+                    @if ($jadwal->mapel)
+                      {{ $jadwal->mapel->bobot_k . "%" }}
+                    @else
+                      {{ " - " }}
+                    @endif
+                  </td>
+                </tr>
+                <tr>
                   <td>Semester</td>
                   <td>:</td>
                   <td>
@@ -79,6 +101,7 @@
                       <th>Nama Siswa</th>
                       <th class="text-center" style="width: 200px;">Pengetahuan</th>
                       <th class="text-center" style="width: 200px;">Keterampilan</th>
+                      <th class="text-center" style="width: 130px;">Nilai Akhir</th>
                       <th class="text-center" style="width: 50px;">Aksi</th>
                     </tr>
                   </thead>
@@ -91,7 +114,7 @@
                         $array = array('siswa' => $data->siswa->id, 'mapel' => $jadwal->mapel_id, 'tahun' => $tahun->id);
                         $jsonData = json_encode($array);
                       @endphp
-                      @if ($data->cekNilaiMapel($jsonData))
+                      @if ($data->cekNilaiMapel($jsonData) && $jadwal->mapel)
                         <input type="hidden" name="nilai_mapel_id" class="nilai_mapel_{{ $data->siswa->id }}" value="{{ $data->cekNilaiMapel($jsonData)['id'] }}">
                         <tr>
                           <td class="text-center">{{ $loop->iteration }}</td>
@@ -101,6 +124,9 @@
                           </td>
                           <td class="text-center">
                             <input type="text" name="nilai_k" maxlength="2" onkeypress="return inputAngka(event)" value="{{ $data->cekNilaiMapel($jsonData)['nilai_k'] }}" class="form-control text-center nilai_k_{{ $data->siswa->id }}" autocomplete="off">
+                          </td>
+                          <td class="text-center nilai_a_{{ $data->siswa->id }}">
+                            {{ round(($data->cekNilaiMapel($jsonData)['nilai_p'] * $jadwal->mapel->bobot_p + $data->cekNilaiMapel($jsonData)['nilai_k'] * $jadwal->mapel->bobot_k) / 100) }}
                           </td>
                           <td class="ctr text-center">
                             <button type="button" class="btn btn-default btn_click load_{{ $data->siswa->id }}" data-id="{{ $data->siswa->id }}"><i class="nav-icon fas fa-save"></i></button>
@@ -117,6 +143,7 @@
                           <td class="text-center">
                             <input type="text" name="nilai_k" maxlength="2" onkeypress="return inputAngka(event)" class="form-control text-center nilai_k_{{ $data->siswa->id }}" autocomplete="off">
                           </td>
+                          <td class="text-center nilai_a_{{ $data->siswa->id }}"> - </td>
                           <td class="ctr text-center">
                             <button type="button" class="btn btn-default btn_click load_{{ $data->siswa->id }}" data-id="{{ $data->siswa->id }}"><i class="nav-icon fas fa-save"></i></button>
                           </td>
@@ -208,6 +235,7 @@
           success: function(data){
             if (data.success) {
               $(".nilai_mapel_" + siswa_id).val(data.data.id);
+              $(".nilai_a_" + siswa_id).html(data.nilai_akhir);
               toastr.success(data.success);
               $(".load_" + siswa_id).html(`<i class="nav-icon fas fa-save"></i>`);
             } else {

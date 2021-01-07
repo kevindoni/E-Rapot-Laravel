@@ -35,6 +35,8 @@ class CreateSiswaTable extends Migration
             $table->text('alamat_wali')->nullable()->default('-');
             $table->string('telp_wali')->nullable()->default('-');
             $table->string('pekerjaan_wali')->nullable()->default('-');
+            $table->date('tgl_masuk');
+            $table->date('tgl_lulus')->nullable();
             $table->enum('status', ['Belum Aktif', 'Aktif'])->default('Belum Aktif');
             $table->enum('lulus', ['Belum Lulus', 'Sudah Lulus'])->default('Belum Lulus');
             $table->timestamps();

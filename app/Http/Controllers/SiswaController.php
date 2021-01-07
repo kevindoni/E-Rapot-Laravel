@@ -62,6 +62,7 @@ class SiswaController extends Controller
             'telp_ortu' => 'required',
             'pekerjaan_ayah' => 'required',
             'pekerjaan_ibu' => 'required',
+            'tgl_masuk' => 'required'
         ]);
 
         if ($request->siswa_id) {
@@ -103,6 +104,7 @@ class SiswaController extends Controller
                 'alamat_wali' => $request->alamat_wali,
                 'telp_wali' => $request->telp_wali,
                 'pekerjaan_wali' => $request->pekerjaan_wali,
+                'tgl_masuk' => $request->tgl_masuk
             ]
         );
 

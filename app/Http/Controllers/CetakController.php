@@ -15,10 +15,10 @@ use Illuminate\Support\Facades\Auth;
 
 class CetakController extends Controller
 {
-    public function rapot($id)
+    public function waliRapot($id)
     {
-        $siswa = Siswa::find(Auth::user()->data_id);
-        $tahun = Tahun::find($id);
+        $siswa = Siswa::find($id);
+        $tahun = Tahun::where('status', 'Aktif')->first();
         $kelas = NilaiMapel::with('kelas.prodi', 'wali')->where('siswa_id', $siswa->id)->where('tahun_id', $tahun->id)->first();
         $MuatanNasional = NilaiMapel::with('mapel')->where('siswa_id', $siswa->id)->where('tahun_id', $tahun->id)->where('kelompok', 'Muatan Nasional')->get();
         if ($MuatanNasional) {

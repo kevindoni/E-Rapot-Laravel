@@ -35,11 +35,11 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/import/nilai-ekstra', [App\Http\Controllers\ImportController::class, 'ekstra'])->name('import.ekstra');
         Route::resource('nilai-ekstra', App\Http\Controllers\NilaiEkstraController::class);
         Route::get('/wali/rapot', [App\Http\Controllers\HomeController::class, 'wali'])->name('wali.rapot');
+        Route::get('/wali/cetak/rapot/{id}', [App\Http\Controllers\CetakController::class, 'waliRapot'])->name('wali.cetak.rapot');
     });
 
     Route::middleware(['siswa'])->group(function () {
         Route::get('/rapot', [App\Http\Controllers\HomeController::class, 'rapot'])->name('rapot');
-        Route::get('/cetak/rapot/{id}', [App\Http\Controllers\CetakController::class, 'rapot'])->name('cetak.rapot');
     });
 
     Route::middleware(['admin'])->group(function () {

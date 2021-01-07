@@ -19,7 +19,8 @@ class CreateTahunTable extends Migration
             $table->string('tahun');
             $table->string('kpl_sklh');
             $table->string('nip_kespek');
-            $table->enum('status', ['Tidak Aktif', 'Aktif']);
+            $table->date('tgl_rapot');
+            $table->enum('status', ['Tidak Aktif', 'Aktif'])->default("Tidak Aktif");
             $table->timestamps();
         });
     }

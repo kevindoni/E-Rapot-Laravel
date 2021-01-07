@@ -1,29 +1,18 @@
 <div>
   <div class="card-header">
-    <div class="row">
-      <div class="col-10">
-        <select wire:model="select" class="custom-select form-control" style="width: 100%;">
-          <option value="" disabled>-- Pilih Tahun Pelajaran --</option>
-          @foreach ($listTahun as $key => $data)
-            <option value="{{ $key }}">
-              {{ $data[0]->tahun->semester }}
-              @if ($data[0]->tahun->semester == "Ganjil")
-                {{ $data[0]->tahun->tahun . "/" . ($data[0]->tahun->tahun + 1) }}
-              @else
-                {{ ($data[0]->tahun->tahun - 1) . "/" . $data[0]->tahun->tahun }}
-              @endif
-            </option>
-          @endforeach
-        </select>
-      </div>
-      <div class="col-2">
-        @if ($select)
-          <a href="{{ route('cetak.rapot', $tahun->id) }}" target="_blank" class="btn btn-primary btn-block" style="height: calc(2.25rem + 2px);"><i class='nav-icon fas fa-print'></i> &nbsp; Cetak</a>
-        @else
-          <a href="#" target="_blank" class="btn btn-primary btn-block disabled" style="height: calc(2.25rem + 2px);"><i class='nav-icon fas fa-print'></i> &nbsp; Cetak</a>
-        @endif
-      </div>
-    </div>
+    <select wire:model="select" class="custom-select form-control" style="width: 100%;">
+      <option value="" disabled>-- Pilih Tahun Pelajaran --</option>
+      @foreach ($listTahun as $key => $data)
+        <option value="{{ $key }}">
+          {{ $data[0]->tahun->semester }}
+          @if ($data[0]->tahun->semester == "Ganjil")
+            {{ $data[0]->tahun->tahun . "/" . ($data[0]->tahun->tahun + 1) }}
+          @else
+            {{ ($data[0]->tahun->tahun - 1) . "/" . $data[0]->tahun->tahun }}
+          @endif
+        </option>
+      @endforeach
+    </select>
   </div>
   <!-- /.card-header -->
   <div class="card-body">
@@ -481,7 +470,7 @@
           <h4 class="mb-3">E. Ketidakhadiran</h4>
           <table class="table table-bordered table-striped table-hover">
             <tr>
-              <td>Sakir</td>
+              <td>Sakit</td>
               <td>- Hari</td>
             </tr>
             <tr>

@@ -38,12 +38,14 @@ class LulusController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'tgl_lulus' => 'required',
             'siswa' => 'required'
         ]);
 
         foreach ($request->siswa as $id) {
             KelasSiswa::where('siswa_id', $id)->delete();
             Siswa::find($id)->update([
+                'tgl_lulus' => $request->tgl_lulus,
                 'lulus' => 'Sudah Lulus'
             ]);
         }

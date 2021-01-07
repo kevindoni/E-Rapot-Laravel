@@ -44,7 +44,8 @@ class TahunController extends Controller
             'semester' => 'required',
             'tahun' => 'required',
             'kpl_sklh' => 'required',
-            'nip_kespek' => 'required'
+            'nip_kespek' => 'required',
+            'tgl_rapot' => 'required'
         ]);
 
         if ($request->tahun_id) {
@@ -84,7 +85,7 @@ class TahunController extends Controller
                 'tahun' => $request->tahun,
                 'kpl_sklh' => $request->kpl_sklh,
                 'nip_kespek' => $request->nip_kespek,
-                'status' => "Tidak Aktif"
+                'tgl_rapot' => $request->tgl_rapot
             ]
         );
 

@@ -65,6 +65,10 @@
                   <label for="nip_kespek">NIP Kepsek</label>
                   <input type="text" id="nip_kespek" name="nip_kespek" class="form-control  @error('nip_kespek') is-invalid @enderror" placeholder="NIP Kepsek" required>
                 </div>
+                <div class="form-group">
+                  <label for="tgl_rapot">Tanggal Terima Rapot</label>
+                  <input type="date" id="tgl_rapot" name="tgl_rapot" class="form-control  @error('tgl_rapot') is-invalid @enderror" required>
+                </div>
               </div>
             </div>
           </div>

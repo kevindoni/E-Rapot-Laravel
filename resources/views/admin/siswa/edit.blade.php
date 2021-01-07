@@ -92,6 +92,10 @@
                 <label for="asal_sekolah">Asal Sekolah</label>
                 <input type="text" id="asal_sekolah" name="asal_sekolah" value="{{ $siswa->asal_sekolah }}" class="form-control @error('asal_sekolah') is-invalid @enderror" placeholder="Asal Sekolah" required>
               </div>
+              <div class="form-group">
+                <label for="tgl_masuk">Tanggal Diterima</label>
+                <input type="date" id="tgl_masuk" name="tgl_masuk" value="{{ $tahun->tgl_masuk }}" class="form-control  @error('tgl_masuk') is-invalid @enderror" required>
+              </div>
             </div>
           </div> <hr>
           <div class="row">

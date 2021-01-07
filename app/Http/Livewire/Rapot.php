@@ -24,7 +24,11 @@ class Rapot extends Component
             $kelas = NilaiMapel::with('kelas.prodi', 'wali')->where('siswa_id', $siswa->id)->where('tahun_id', $tahun->id)->first();
             $MuatanNasional = NilaiMapel::with('mapel')->where('siswa_id', $siswa->id)->where('tahun_id', $tahun->id)->where('kelompok', 'Muatan Nasional')->get();
             if ($MuatanNasional) {
-                $mapel['Muatan Nasional'] = $MuatanNasional;
+                foreach ($MuatanNasional as $data) {
+                    $mapel['Muatan Nasional'] = array(
+                        ''
+                    );
+                }
             } else {
                 $mapel['Muatan Nasional'] = [];
             }

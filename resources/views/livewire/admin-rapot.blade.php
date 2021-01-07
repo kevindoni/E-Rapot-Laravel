@@ -488,7 +488,7 @@
           <h4 class="mb-3">E. Ketidakhadiran</h4>
           <table class="table table-bordered table-striped table-hover">
             <tr>
-              <td>Sakir</td>
+              <td>Sakit</td>
               <td>- Hari</td>
             </tr>
             <tr>
